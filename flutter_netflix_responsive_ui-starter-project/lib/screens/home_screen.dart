@@ -14,11 +14,11 @@ class _HomeScrenState extends State<HomeScreen> {
   @override
   void initState() {
     _scrollController = ScrollController()
-    ..addListener(() {
-      setState(() {
-        _scrollOfset = _scrollController.offset;
+      ..addListener(() {
+        setState(() {
+          _scrollOfset = _scrollController.offset;
+        });
       });
-    });
     super.initState();
   }
 
@@ -30,7 +30,6 @@ class _HomeScrenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-   
     final Size screenSize = MediaQuery.of(context).size;
 
     return Scaffold(
@@ -40,7 +39,6 @@ class _HomeScrenState extends State<HomeScreen> {
         child: const Icon(Icons.cast),
         onPressed: () => print('cast'),
       ),
-      
       appBar: PreferredSize(
         preferredSize: Size(screenSize.width, 50.0),
         child: CustomAppBar(scrollOffset: _scrollOfset),
@@ -59,10 +57,31 @@ class _HomeScrenState extends State<HomeScreen> {
                 contentList: previews,
               ),
             ),
-            )
+          ),
+          SliverToBoxAdapter(
+            child: ContentList(
+              title: 'My List',
+              contentList: myList,
+            ),
+          ),
+          SliverToBoxAdapter(
+            child: ContentList(
+              title: 'Netflix Originals',
+              contentList: myList,
+              isOriginals: true,
+            ),
+          ),
+          SliverPadding(
+            padding: const EdgeInsets.only(bottom: 20.0),
+            sliver: SliverToBoxAdapter(
+              child: ContentList(
+                title: 'Trending',
+                contentList: trending,
+              ),
+            ),
+          ),
         ],
       ),
-    
     );
   }
 }
